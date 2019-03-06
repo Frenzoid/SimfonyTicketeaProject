@@ -1,0 +1,76 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+    <h1 class="secTitle ">
+        {% if app.user != null and status == '3' %}
+            Editando tu usuario
+        {% elseif app.user != null and status == '2' %}
+            Creando usuario
+        {% else %}
+            Registro
+        {%  endif %}
+    </h1>
+    <p class="navigator">
+        <a href="/">Index</a>
+        >
+        <a>
+            {% if app.user != null and status == '3' %}
+                Editando tu usuario
+            {% elseif app.user != null and status == '2' %}
+                Creando usuario
+            {% else %}
+                Registro
+            {%  endif %}
+        </a>
+    </p>
+    <section class="mainSections ">
+        <article id="generalForm">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div>
+                    {{ form_row(form.nombre) }}
+                </div>
+                <div>
+                    {{ form_row(form.email) }}
+                </div>
+                <div>
+                    {{ form_row(form.passwd.first) }}
+                </div>
+                <div>
+                    {{ form_row(form.passwd.second) }}
+                </div>
+                <div>
+                    {{ form_row(form.provincia) }}
+                </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div>
+                    {{ form_row(form.role) }}
+                </div>
+            {% endif %}
+                <div>
+                    {{ form_row(form.avatar) }}
+                </div>
+                <!--div id="captcha">
+                    <label for="captcha">Captcha</label>
+                    <img src="/gencaptcha">
+                    <input type="text" name="captcha" placeholder="captcha">
+                </div-->
+                <div>
+                    <div class="errores">
+                        <p>
+                            {{ form_errors(form.nombre) }}
+                            {{ form_errors(form.email) }}
+                            {{ form_errors(form.passwd) }}
+                            {{ form_errors(form.provincia) }}
+                            {{ form_errors(form.avatar) }}
+                        </p>
+                    </div>
+                </div>
+                <div class="submit">
+                    {{ form_row(form.save, {attr: {'type':'submit'}}) }}
+                </div>
+                {{ form_end(form) }}
+        </article>
+    </section>
+
+{% endblock %}

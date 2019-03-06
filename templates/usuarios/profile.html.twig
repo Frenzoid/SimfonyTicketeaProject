@@ -1,0 +1,66 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+
+<h1 class="secTitle ">
+    {{ usuario.nombre }}
+</h1>
+<p class="navigator">
+    <a href="/">Index</a> >
+    <a href="/usuarios/{{ usuario.id }}">{{ usuario.nombre }}</a>
+</p>
+<section class="mainSections ">
+    <article id="profile">
+        <div id="profile-top">
+            <div>
+                <figure>
+                    <img src="{{ asset(usuario.avatar) }}">
+                </figure>
+
+            </div>
+            <ul>
+                <li><a>Nombre: {{ usuario.nombre }}</a></li>
+                <li><a>Email: {{ usuario.email }}</a></li>
+                <li><a>Rol: {{ usuario.role }}</a></li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/eventos/{{ usuario.id }}/listado"> Ver eventos listados</a>
+                </li>
+                <li>
+                    <a href="/{{ usuario.id }}"> Ver eventos en portada</a>
+                </li>
+
+              {% if (app.user != null and app.user.id != usuario.id) %}
+                    <li>
+                        <a href="/mensajes/{{ usuario.id }}">Mandar mensaje </a>
+                    </li>
+              {% endif %}
+
+              {% if (app.user != null and app.user.id != usuario.id and is_granted('ROLE_ADMIN')) %}
+                    <li>
+                        <a href="/tramites/{{ usuario.id }}/tickets"> Ver entradas de {{ usuario.nombre }}</a>
+                    </li>
+              {% endif %}
+
+            {% if (app.user != null and app.user.id == usuario.id) %}
+                <li>
+                    <a href="/tramites"> Ver mis entradas </a>
+                </li>
+                <li>
+                    <a href="/mensajes"> Ver mis mensajes</a>
+                </li>
+
+            {% endif %}
+            </ul>
+        </div>
+        {% if (app.user != null and (app.user.id == usuario.id) or (is_granted('ROLE_ADMIN'))) %}
+        <div id="profile-bot">
+            <a href="/usuarios/{{ usuario.id }}/edit">Editar perfil</a>
+        </div>
+        {% endif %}
+    </article>
+</section>
+
+{% endblock %}

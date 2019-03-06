@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+  <?php if(!isset($usr)) : ?>
+
+  <h1 class="secTitle ">Eventos Actuales</h1>
+  <p class="navigator"> <a href="/">Index</a> </p>
+  <section class="mainSections ">
+
+    {% for evento in eventos %}
+
+    <article class="event-card">
+      <figure class="event-card-image_title">
+        <img src="{{ evento.poster }}" alt="Event Name">
+        <figcaption>{{ evento.nombre }}</figcaption>
+      </figure>
+      <div class="event-card-info">
+        <div>
+          <div>{{ evento.precio }}</div>
+          <i>&euro;</i>
+        </div>
+        <div>
+          <time datetime="{{ evento.fechaEvento | date("d/m/Y")}}">{{ evento.fechaEvento | date("d/m/Y")}}</time>
+          <i class="fa fa-calendar"></i>
+        </div>
+        <div>
+          <div>{{ evento.provincia.nombre }}</div>
+          <i class="fa fa-map-marker"></i>
+        </div>
+      </div>
+      <div class="event-card-actions">
+        <a href="/eventos/{{ evento.id }}">Ver</a>
+        {% if (app.user != null and app.user.id == evento.autor.id or is_granted('ROLE_ADMIN')) %}
+
+        <a href="/evegest/{{ evento.id }}/edit">Editar</a>
+        <a href="/evegest/{{ evento.id }}/delete">Borrar</a>
+        {% endif %}
+      </div>
+    </article>
+
+   {% endfor %}
+
+  </section>
+
+  
+{% endblock %}

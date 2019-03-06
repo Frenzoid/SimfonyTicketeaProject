@@ -1,0 +1,97 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+  <h1 class="secTitle ">
+    {% if status == '1' %}
+      Editando evento
+    {% else %}
+        Crear Evento
+    {% endif %}
+  </h1>
+  <p class="navigator">
+    <a href="">Index</a>>
+  </p>
+  <section class="mainSections ">
+    <article id="generalForm" class="create-evet-form">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        <div class="form-pack">
+          <div>
+              {{ form_row(form.descripcion) }}
+          </div>
+          <div>
+              {{ form_row(form.nombre) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div>
+              {{ form_row(form.provincia) }}
+          </div>
+          <div>
+              {{ form_row(form.direccion) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div>
+              {{ form_row(form.precio) }}
+          </div>
+          <div>
+              {{ form_row(form.categoria) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div>
+               {{ form_row(form.poster) }}
+          </div>
+          <div>
+              {{ form_row(form.fechaEvento) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div>
+              {{ form_row(form.fechaVentaFinal) }}
+
+          </div>
+          <div>
+              {{ form_row(form.fechaVentaInicio) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div>
+              {{ form_row(form.numEntradasTot) }}
+          </div>
+          <div>
+              {{ form_row(form.enlaceExterno) }}
+          </div>
+        </div>
+
+        <div class="form-pack">
+          <div class="errores">
+            <p>
+                {{ form_errors(form.nombre) }}
+                {{ form_errors(form.descripcion) }}
+                {{ form_errors(form.precio) }}
+                {{ form_errors(form.poster) }}
+                {{ form_errors(form.provincia) }}
+                {{ form_errors(form.categoria) }}
+                {{ form_errors(form.fechaVentaInicio) }}
+                {{ form_errors(form.fechaVentaInicio) }}
+                {{ form_errors(form.fechaEvento) }}
+            </p>
+          </div>
+          <div>
+              {{ form_row(form.save) }}
+              <a href="/eventos">Cancelar</a>
+          </div>
+        </div>
+        {{ form_end(form) }}
+    </article>
+  </section>
+  
+{% endblock %}

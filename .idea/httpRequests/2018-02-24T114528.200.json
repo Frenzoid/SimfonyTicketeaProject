@@ -1,0 +1,41 @@
+{
+  "data": {
+    "id": 2,
+    "autor": {
+      "__initializer__": {},
+      "__cloner__": {},
+      "__isInitialized__": false
+    },
+    "fechaEvento": {
+      "date": "2018-02-28 00:00:00.000000",
+      "timezone_type": 3,
+      "timezone": "Europe\/Berlin"
+    },
+    "fechaVentaInicio": {
+      "date": "2018-02-01 00:00:00.000000",
+      "timezone_type": 3,
+      "timezone": "Europe\/Berlin"
+    },
+    "fechaVentaFinal": {
+      "date": "2018-02-28 00:00:00.000000",
+      "timezone_type": 3,
+      "timezone": "Europe\/Berlin"
+    },
+    "numEntradasRes": 19,
+    "numEntradasTot": 20,
+    "categoria": {
+      "__initializer__": {},
+      "__cloner__": {},
+      "__isInitialized__": false
+    },
+    "provincia": {
+      "__initializer__": {},
+      "__cloner__": {},
+      "__isInitialized__": false
+    },
+    "poster": "\/uploads\/posters\/bc2f2d3d7ddefb2e018300ef7f0981c3.jpeg",
+    "enlaceExterno": "www.google.es",
+    "direccion": "C\/ lilo juan 123",
+    "nombre": "HOLAAAA"
+  }
+}

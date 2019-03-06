@@ -1,0 +1,63 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+  <h1 class="secTitle">
+    Eventos:
+  </h1>
+
+  <p class="navigator">
+    <a href="/">Index</a>>
+    <a href="/buscar">Eventos Listado</a>
+  </p>
+
+  <section class="mainSections force-flex-col">
+
+    {% for evento in eventos %}
+
+      <article class="list-item">
+
+      <figure class="list-event-image_caption">
+        <img src="{{ evento.poster }}" alt="Event Name">
+        <figcaption><a href="/eventos/{{ evento.id }}">{{ evento.nombre }}</a></figcaption>
+      </figure>
+
+      <div class="list-item-info">
+        <div>
+          <i class="fa fa-calendar"></i>
+          <time datetime="{{ evento.fechaEvento | date("d/m/Y")}}">{{ evento.fechaEvento | date("d/m/Y")}}</time>
+          <p>Fech. Evento:</p>
+        </div>
+        <div>
+          <i>&euro;</i>
+          <div>{{ evento.precio }}</div>
+          <p>Precio x entrada: </p>
+        </div>
+      </div>
+      <div class="list-item-info">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <div>{{ evento.provincia.nombre }}</div>
+          <p>Provincia: </p>
+        </div>
+        <div>
+          <i class="fa fa-calendar"></i>
+          <div>{{ evento.categoria.nombre }}</div>
+          <p>Categoria: </p>
+        </div>
+      </div>
+
+      <div class="list-item-actions">
+        <a href="/eventos/{{ evento.id }}">Ver</a>
+
+        {% if (app.user != null and app.user.id == evento.autor.id or is_granted('ROLE_ADMIN')) %}
+          <a href="/evegest/{{ evento.id }}/edit">Editar</a>
+          <a href="/evegest/{{ evento.id }}/delete">Borrar</a>
+        {% endif %}
+
+      </div>
+    </article>
+    {% endfor %}
+
+  </section>
+{% endblock %}

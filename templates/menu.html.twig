@@ -1,0 +1,31 @@
+
+
+    <aside class="sideNavHidden" id="sideNav">
+        {% if is_granted('ROLE_COMPRADOR') %}
+            <h2> {{ app.user.nombre }} </h2>
+            <a href='/usuarios/{{ app.user.id}}'>Mi perfil</a>
+            <a href="/tramites">Mis entradas</a>
+            <a href="/mensajes">Mis mensajes</a>
+        {% endif %}
+
+        {% if is_granted('ROLE_GESTOR') %}
+            <h2> Eventos </h2>
+            <a href="/eventos/{{ app.user.id }}/listado">Mis eventos</a>
+            <a href="/evegest">Crear Evento</a>
+        {% endif %}
+
+        <h2> Pagina </h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="/admgest/nuevousuario">Crear Cuenta</a>
+        {% endif %}
+        {% if is_granted('ROLE_COMPRADOR') %}
+            <a href="/usuarios">Lista de Usuarios</a>
+        {% endif %}
+        {% if is_granted('ROLE_COMPRADOR') %}
+            <a href="{{ path('logout') }}">cerrar sesion</a>
+        {% else %}
+            <a href="/registro">Registrarse</a>
+            <a href="{{ path('login') }}"> Acceder</a>
+        {% endif %}
+    </aside>
+  

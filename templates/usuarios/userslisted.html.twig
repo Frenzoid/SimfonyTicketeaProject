@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+    <h1 class="secTitle">
+        Usuarios:
+    </h1>
+    <p class="navigator">
+        <a href="/">Index</a>>
+        <a href="/usuarios">Usuario</a>
+    </p>
+    <section class="mainSections force-flex-col">
+        <!--form class="busqueda userformdetect" id="busqueda" action="/usuarios" method="POST">
+            <div>
+                <label for="patron">Buscar usuario</label>
+                <input type="text" name="patron" placeholder="Buscar..." >
+            </div>
+            <div>
+                <label for="ordenado">ordenar por</label>
+                <select name="orden" id="detectchanges">
+                    <option value="FechaAlta">Fecha</option>
+                    <option value="Role">Rol</option>
+                    <option value="Provincia">Provincia</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="buscar">
+            </div>
+        </form-->
+
+        {% for usuario in usuario %}
+        <article class="list-item">
+            <figure class="list-user-image_caption">
+                <img src="{{ usuario.avatar }}" alt="user avatar">
+                <figcaption><p>{{ usuario.nombre }}</p></figcaption>
+            </figure>
+            <div class="list-item-info">
+                <div>
+                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                    <div><p></p>{{ usuario.role }}</div>
+                    <p>Nivel de autorizacion</p>
+                </div>
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    <time datetime="{{ usuario.fechaAlta | date("m/d/Y")}}"> {{ usuario.fechaAlta | date("m/d/Y")}} </time>
+                    <p>fecha de alta</p>
+                </div>
+            </div>
+            <div class="list-item-info">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <div><p>{{ usuario.provincia.nombre }}</p></div>
+                    <p> Provincia</p>
+                </div>
+            </div>
+            <div class="list-item-actions">
+                <a href="/usuarios/{{ usuario.id }}">Ver</a>
+
+                {% if (app.user.id == usuario.id or is_granted('ROLE_ADMIN')) %}
+                    <a href="/usuarios/{{ usuario.id }}/edit">Editar</a>
+                    <a href="/usuarios/{{ usuario.id }}/delete">Borrar</a>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+
+{% endblock %}

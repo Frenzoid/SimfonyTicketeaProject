@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block layout %}
+
+  <div id="container">
+    <form action="/eventos" id="formmain" method="POST">
+      <header class="containerPadding" id="container-header">
+        <h1 id="logo">
+          <a href="/"> LiveTicket </a>
+        </h1>
+        <div id="mainInput">
+          <input type="text"  name="patron" placeholder="Buscar evento por nombre, autor, desc... ">
+          <i id="showfilters" class="fa fa-filter fa-2x"></i>
+        </div>
+        <nav>
+          <i class="fa fa-bars fa-2x" id="openNavLateral" aria-hidden="true"></i>
+          <!--i class="fa fa-question fa-2x"></i-->
+        </nav>
+      </header>
+      <header id="container-filter-header" class="hideMainFilters containerPadding">
+        <div class="filter">
+          <div>
+            <label for="fecha"> Buscar entre fechas: </label>
+          </div>
+          <div>
+            <select name="fecha1">
+              <option value=""> todas las fechas </option>
+              <option value="M"> manyana </option>
+              <option value="S"> esta semana </option>
+              <option value="W"> este fin de semana </option>
+              <option value="MH"> Este mes </option>
+            </select>
+            <input type="date" name="fecha2">
+            <input type="date" name="fecha3">
+            <i class="fa fa-calendar"></i>
+          </div>
+        </div>
+        <div class="filter">
+          <div>
+            <label>Provincia: </label>
+          </div>
+          <div>
+            <select name="provincia">
+              <option value="">todas</option>
+                {% for provincia in globalVars.Provincias %}
+                    <option value="{{ provincia.id }}"> {{ provincia.nombre }} </option>
+                {% endfor %}
+            </select>
+            <i class="fa fa-globe"></i>
+          </div>
+        </div>
+        <div class="filter">
+          <div>
+            <label for="categoria"> Categoria: </label>
+          </div>
+          <div>
+            <select name="categoria" id="categoria">
+              <option value=""> todas </option>
+                {% for categoria in globalVars.Categorias %}
+                    <option value="{{ categoria.id }}"> {{ categoria.nombre }} </option>
+                {% endfor %}
+            </select>
+            <i class="fa fa-music" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="filter ">
+          <div>
+            <label for="disponibles"> Mostrar solo disponibles:</label>
+          </div>
+          <div>
+            <input type="checkbox" id="cbox1" name="disponibles">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="filter">
+          <div>
+            <label for="ordenado">ordenar por:</label>
+          </div>
+          <div>
+            <select name="orden" id="detectchanges">
+              <option value="" selected> Sin orden </option>
+              <option value="fecha" > Fecha </option>
+              <option value="categoria"> Categoria </option>
+              <option value="provincia"> Provincia </option>
+            </select>
+          </div>
+        </div>
+        <div class="filter submitFilters">
+          <input type="submit" value="Buscar">
+        </div>
+      </header>
+    </form>
+
+    {% include'menu.html.twig' %}
+
+    <main class="containerPadding">
+
+
+
+{% block main %}
+
+{% endblock %}
+{% endblock %}

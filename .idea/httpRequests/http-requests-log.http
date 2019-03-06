@@ -1,0 +1,24 @@
+GET http://localhost:8000/api/v1/eventos/2
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-02-24T114528.200.json
+
+###
+
+GET http://localhost:8000/eventos/2
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-02-20T031349.200.html
+
+###
+
+GET http://localhost:8000/eventos/1
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-02-20T031329.500.html
+
+###
+

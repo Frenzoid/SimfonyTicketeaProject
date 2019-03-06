@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+
+    <h1 class="secTitle ">
+        Mensajes:
+    </h1>
+    <p class="navigator">
+        <a href="/">Index</a>>
+        <a href="/mensajes">Chat</a>
+    </p>
+
+    <section class="mainSections ">
+        <article id="comunication-panel">
+            <aside id="com-pan-lateral">
+                <div>
+                    <h2>Todos los usuarios</h2>
+                    <ul>
+                        {% for usuario in usuarios %}
+                            {% if usuario.id != app.user.id %}
+                            <li>
+                                <a href="/mensajes/{{ usuario.id }}">{{ usuario.nombre }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside>
+            <div id="com-pan-chat">
+                {% if enchat is not defined %}
+                <div>
+                    <h2>
+                        Selecciona un usuario para mandarle un mensaje.
+                    </h2>
+                </div>
+                {% endif %}
+
+
+                {% if enchat is defined %}
+                    <div>
+                        <a href="/usuarios/{{ enchat.id }}">
+                            <h2>Chat con
+                                <strong>{{ enchat.nombre }} </strong>
+                            </h2>
+                        </a>
+                        <ul id="com-pan-chat-msg">
+                            {% for mensaje in mensajes %}
+                            <li {% if mensaje.emisor.id == app.user.id %} class="mine" {% endif %}><small>{{ mensaje.fecha | date("d/m/Y") }}</small><br>{{ mensaje.mensaje}}</li>
+                           {% endfor %}
+                        </ul>
+                    </div>
+                    <form method="POST" action="/mensajes/{{ enchat.id }}">
+                        <input type="text" name="mensaje" placeholder="mensaje">
+                        <input type="submit" value="enviar">
+                    </form>
+                {% endif %}
+
+            </div>
+        </article>
+    </section>
+
+
+{% endblock %}

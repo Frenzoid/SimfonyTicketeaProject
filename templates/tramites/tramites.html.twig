@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+    <h1 class="secTitle">
+        Mis tickets:
+    </h1>
+    <p class="navigator">
+        <a href="/">Index</a>>
+        <a href="/tramites">Tickets</a>
+    </p>
+    <section class="mainSections force-flex-col">
+
+        {% for factura in facturas %}
+        <article class="list-item">
+
+            <figure class="list-event-image_caption">
+                <img src="{{ factura.eventoId.poster }}" alt="Event Name">
+                <figcaption><a href="/eventos/{{ factura.eventoId.id }}">{{ factura.eventoId.nombre }}</a></figcaption>
+            </figure>
+
+            <div class="list-item-info">
+                <div>
+                    <i class="fa  fa-asterisk"></i>
+                    <div>{{ factura.eventoId.nombre }}</div>
+                    <p>Evento</p>
+                </div>
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    <div>{{ factura.fechaCompra | date("m/d/Y")}}</div>
+                    <p>Fecha compra</p>
+                </div>
+                <div>
+                    <i>&euro;</i>
+                    <div>{{ factura.eventoId.precio * factura.cantidad }} </div>
+                    <p>Precio total: </p>
+                </div>
+            </div>
+            <div class="list-item-info">
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    <time datetime="{{ factura.eventoId.fechaEvento | date("m/d/Y")}}">{{ factura.eventoId.fechaEvento | date("m/d/Y")}}</time>
+                    <p>Fech. Evento: </p>
+                </div>
+                <div>
+                    <i class="fa fa-list-ol"></i>
+                    <div>{{ factura.cantidad }}</div>
+                    <p>Cantidad de usos x persona: </p>
+                </div>
+            </div>
+            <div class="list-item-actions">
+                <a class="mcodigo">Mostrar codigo</a>
+                <a class="codigo"> {{ factura.barcode }}</a>
+            </div>
+        </article>
+
+        {% endfor %}
+
+    </section>
+
+ {% endblock %}

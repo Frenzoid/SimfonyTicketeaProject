@@ -1,0 +1,100 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+  <h1 class="secTitle ">
+    Detalles del evento: {{ evento.nombre }}
+  </h1>
+  <p class="navigator">
+    <a href="/">Index</a>>
+    <a href="/evento/listados">Eventos Listados"</a>
+    <a href="/evento/{{ evento.id }}/detalles">Detalles del evento"</a>
+  </p>
+  <section class="mainSections ">
+    <article id="event-details">
+      <div id="event-main">
+        <h2> {{ evento.nombre }}</h2>
+        <figure>
+          <img src="{{ evento.poster }}">
+        </figure>
+        <h3>Categoria: {{ evento.categoria }}</h3>
+        <p>
+          {{ evento.descripcion }}
+        </p>
+        {% if evento.enlaceExterno != "" %}
+        <h3><a href="http://{{ evento.enlaceExterno }}">Mas informacion: </a> {{ evento.enlaceExterno }} </h3>
+        {% endif %}
+      </div>
+
+      <aside id="event-tramit-info">
+        <div>
+          <h3> {{ evento.provincia.nombre }} </h3>
+          <p> {{ evento.direccion }} </p>
+          <div>
+            Fecha del evento:
+            <strong>{{ evento.fechaEvento | date("m/d/Y")}} </strong>
+          </div>
+        </div>
+        <div>
+          <div>
+            Entradas disponibles desde:
+            <strong> {{ evento.fechaVentaInicio | date("m/d/Y")}} </strong>
+          </div>
+          <div>
+            Entradas disponibles hasta:
+            <strong> {{ evento.fechaVentaFinal | date("m/d/Y")}} </strong>
+          </div>
+          <div>
+            Entradas disponibles:
+            <strong> {{ evento.numEntradasRes }} </strong>
+          </div>
+          <div>
+            Precio x Entrada:
+            <strong> {{ evento.precio }}
+              <i>&euro;</i>
+            </strong>
+          </div>
+          {% if evento.numEntradasRes != '0' %}
+          <form method="POST" action="/tramites/{{ evento.id }}">
+            <label for="cantidad">Cant. Entradas a comprar</label>
+            <div>
+              <input type="number" name="entradas" value="1">
+              <input type='submit' value="comprar">
+            </div>
+            <div class="errores">
+              <p>
+                {% if errores is defined %}
+                    {{ errores }}
+                {% endif %}
+              </p>
+            </div>
+          </form>
+          {% endif %}
+        </div>
+        <div>
+          <h3>Anfitrion:</h3>
+          <div>
+            <figure>
+              <a href='/usuarios/{{ evento.autor.id }}'><img src="{{ evento.autor.avatar }}"></a>
+            </figure>
+            <div>
+              <h4>{{ evento.autor.nombre }}</h4>
+              <div>
+                <a href='/mensajes/{{ evento.autor.id }}'>Mandar mensaje</a>
+                <a href='/{{ evento.autor.id }}'>Ver Eventos</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </article>
+    <iframe
+            width="100%"
+            height="500"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBGYN63Nou7olyRe0ePvLYl_3xoMrvJlJ8&q={{ evento.direccion }}, {{ evento.provincia.nombre }}" allowfullscreen>
+    </iframe>
+  </section>
+
+  
+{% endblock %}

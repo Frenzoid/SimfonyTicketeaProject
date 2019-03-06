@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+    <h1 class="secTitle ">
+        Iniciar Sesión:
+    </h1>
+    <p class="navigator">
+        <a href="/index">Index</a> > <a href="/login">Login</a>
+    </p>
+    <section class="mainSections ">
+        <article id="generalForm">
+            <form action="{{ path('login') }}" method="POST">
+                <div>
+                    <label for="nick">Nombre de usuario</label>
+                    <input type ="text" id="nombre" name ="_username" value ="{{ last_username }}" />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type ="password" id="passwd" name ="_password" />
+                </div>
+                <div>
+                    <div class="errores">
+                    {% if error %}
+                        <p>
+                            {{ error.message }}
+                        </p>
+                    {% endif %}
+                    </div>
+                    <div class="submit">
+                        <input type="submit" value="identificarse">
+                    </div>
+                </div>
+            </form>
+        </article>
+    </section>
+
+ {% endblock %}
